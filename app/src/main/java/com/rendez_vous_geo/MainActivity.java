@@ -1,5 +1,6 @@
 package com.rendez_vous_geo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -25,10 +26,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view : Bouton créer
      */
     public void newRendezvousAction(View view) {
-        /*
-         * TODO : implementer le bouton et l'action pour ouvrir
-         *  l'activité de création de rdv (NewRendezvousActivity)
-         */
+        Intent i = new Intent(this, NewRendezvousActivity.class);
+        startActivity(i);
     }
-
 }
