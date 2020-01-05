@@ -9,6 +9,10 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.schibstedspain.leku.LocationPickerActivity;
+import com.schibstedspain.leku.locale.SearchZoneRect;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class NewRendezvousActivity extends AppCompatActivity {
 
     static final int PICK_CONTACT_REQUEST = 1; // Code requete pour l'intent de choix contact
+    static final int PICK_LOCATION_REQUEST = 2; // Code requete pour l'intent de choix lieu
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +44,8 @@ public class NewRendezvousActivity extends AppCompatActivity {
         startActivityForResult(intent, PICK_CONTACT_REQUEST);
     }
 
+
+
     /**
      * Action du bouton de l'envoi du rdv
      *
@@ -54,6 +61,7 @@ public class NewRendezvousActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        super.onActivityResult(requestCode, resultCode, data);
         /*
          * Request choix du contact
          */
@@ -76,5 +84,20 @@ public class NewRendezvousActivity extends AppCompatActivity {
                 contactList.setSelection(content.length());
             }
         }
+
+        if (requestCode == PICK_LOCATION_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                System.out.println("result");
+            }
+        }
+    }
+
+    public void addLocationAction(View view) {
+        Intent locationPickerIntent = new LocationPickerActivity.Builder()
+                .withDefaultLocaleSearchZone()
+                .shouldReturnOkOnBackPressed()
+                .build(getApplicationContext());
+
+        startActivityForResult(locationPickerIntent, PICK_LOCATION_REQUEST);
     }
 }

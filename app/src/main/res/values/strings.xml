@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Rendez-vous Géolocalisé</string>
-
     <string name="title_new_rdv_activity">Organiser un rendez-vous géolocalisé</string>
-
     <string name="btn_new_rdv_text">Créer un rendez-vous</string>
-
     <string name="title_contact_list">Liste des contacts pour le rendez-vous</string>
+    <string name="error_permission_map">Vous devez autorisez l accès à la localisation.</string>
+    <string name="btn_add_location">Lieu du rendez-vous</string>
+    <string name="btn_send_rdv">Envoyer le rendez-vous par SMS</string>
 </resources>

@@ -36,9 +36,16 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/btn_add_location"
+        android:id="@+id/btn_add_location"
+        android:onClick="addLocationAction"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="0"
         android:layout_gravity="bottom"
-        android:text="Envoyer le rendez-vous par SMS" />
+        android:text="@string/btn_send_rdv" />
 
 
 </LinearLayout>
