@@ -1,9 +1,23 @@
 <resources>
+    <!-- Global -->
     <string name="app_name">Rendez-vous Géolocalisé</string>
-    <string name="title_new_rdv_activity">Organiser un rendez-vous géolocalisé</string>
+
+    <!-- Titre des activites -->
+    <string name="title_new_rdv_activity">Nouveau rendez-vous</string>
+
+    <!-- MainActivity -->
     <string name="btn_new_rdv_text">Créer un rendez-vous</string>
-    <string name="title_contact_list">Liste des contacts pour le rendez-vous</string>
-    <string name="error_permission_map">Vous devez autorisez l accès à la localisation.</string>
+
+    <!-- NewRendezvousActivity -->
+    <string name="label_contact_list">Contact(s) pour le rendez-vous</string>
     <string name="btn_add_location">Lieu du rendez-vous</string>
-    <string name="btn_send_rdv">Envoyer le rendez-vous par SMS</string>
+
+    <string name="btn_preview_msg">Prévisualiser</string>
+    <string name="btn_send_rdv">Envoyer</string>
+    <string name="add_msg_rdv">Ajouter un message</string>
+    <string name="label_date">Date du rendez-vous</string>
+    <string name="date">Choix de la date</string>
+    <string name="error_permission_map">Vous devez autorisez l accès à la localisation.</string>
+
+
 </resources>

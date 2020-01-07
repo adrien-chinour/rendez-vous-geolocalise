@@ -1,0 +1,10 @@
+<resources>
+    <string name="leku_title_activity_location_picker">Choix de la localisation</string>
+    <string name="leku_load_location_error">Oops, une erreur est survenue. Merci de ré-essayer.</string>
+    <string name="leku_no_search_results">Aucun résultat pour cette recherche</string>
+    <string name="leku_unknown_location">Localisation inconnue</string>
+    <string name="leku_voice_search_promp">Rehercher par la voix…</string>
+    <string name="leku_voice_search_extra_language">fr-FR</string>
+    <string name="leku_toolbar_action_voice_title">Voix</string>
+    <string name="leku_search_hint">Rechercher</string>
+</resources>

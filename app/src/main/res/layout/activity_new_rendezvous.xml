@@ -1,51 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <TextView
-        android:id="@+id/title_contact_list"
+    <!-- Ajout des contacts -->
+    <LinearLayout
+        android:id="@+id/view_contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:text="@string/title_contact_list" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:paddingBottom="@dimen/view_separation"
+        tools:ignore="MissingConstraints">
 
         <EditText
             android:id="@+id/contact_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:inputType="text" />
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:hint="@string/label_contact_list"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:shadowColor="@android:color/holo_blue_dark" />
 
         <ImageButton
             android:id="@+id/btn_add_contact"
             android:layout_width="60dp"
             android:layout_height="match_parent"
+            android:layout_margin="@dimen/btn_border"
             android:layout_weight="0"
+            android:background="@android:color/holo_blue_dark"
+            android:contentDescription="+"
             android:onClick="addContactAction"
-            android:src="@drawable/ic_add_box_24px" />
+            android:src="@drawable/ic_add_box_24px"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 
-    <Button
+    <!-- Ajout de la locatisation -->
+    <LinearLayout
+        android:id="@+id/view_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_add_location"
-        android:id="@+id/btn_add_location"
-        android:onClick="addLocationAction"/>
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/view_separation"
+        app:layout_constraintTop_toBottomOf="@+id/view_contact">
 
-    <Button
+        <Button
+            android:id="@+id/btn_add_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/btn_border"
+            android:background="@android:color/darker_gray"
+            android:onClick="addLocationAction"
+            android:text="@string/btn_add_location"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/location_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_blue_dark" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/view_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:layout_gravity="bottom"
-        android:text="@string/btn_send_rdv" />
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/view_location">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:labelFor="@+id/message"
+            android:text="@string/add_msg_rdv"
+            android:textAllCaps="true"
+            android:textColor="@android:color/darker_gray" />
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/holo_blue_dark"
+            android:importantForAutofill="no"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/view_message">
+
+        <EditText
+            android:id="@+id/date_picker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textColor="@android:color/holo_red_light"
+            android:focusable="true"
+            android:hint="@string/label_date"
+            android:inputType="date" />
+
+    </LinearLayout>
+
+    <!--    <TextView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="@string/label_date" />-->
+
+    <!--    <Button-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:onClick="showDatePickerDialog"-->
+    <!--        android:text="@string/date" />-->
+
+    <TextView
+        android:id="@+id/msg_preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_blue_dark"
+        app:layout_constraintBottom_toTopOf="@id/view_btn_action" />
+
+    <LinearLayout
+        android:id="@+id/view_btn_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:onClick="previewAction"
+            android:text="@string/btn_preview_msg"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/holo_blue_dark"
+            android:onClick="sendRendezvousAction"
+            android:text="@string/btn_send_rdv"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
