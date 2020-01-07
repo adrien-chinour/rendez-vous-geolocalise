@@ -39,7 +39,6 @@
                 android:id="@+id/btn_add_contact"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/btn_border"
                 android:layout_weight="0"
                 android:contentDescription="+"
                 android:onClick="addContactAction"
@@ -47,6 +46,15 @@
                 tools:ignore="HardcodedText" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/error_contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/error_padding"
+            android:text="@string/error_contact"
+            android:textColor="@android:color/holo_red_light"
+            android:visibility="invisible" />
 
     </LinearLayout>
 
@@ -73,6 +81,16 @@
             android:layout_height="wrap_content"
             android:onClick="addLocationAction"
             android:text="@string/default_location" />
+
+
+        <TextView
+            android:id="@+id/error_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/error_padding"
+            android:text="@string/error_location"
+            android:textColor="@android:color/holo_red_light"
+            android:visibility="invisible" />
     </LinearLayout>
 
 
@@ -141,7 +159,6 @@
                     android:onClick="showDatePickerDialog"
                     android:text="@string/default_date"
                     tools:ignore="ButtonStyle" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -168,9 +185,25 @@
 
             </LinearLayout>
 
-
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/error_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/error_padding"
+            android:text="@string/error_date"
+            android:textColor="@android:color/holo_red_light"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/error_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/error_padding"
+            android:text="@string/error_time"
+            android:textColor="@android:color/holo_red_light"
+            android:visibility="invisible" />
 
     </LinearLayout>
 
@@ -178,7 +211,11 @@
         android:id="@+id/msg_preview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_blue_dark"
+        android:layout_margin="@dimen/preview_margin"
+        android:background="@android:color/darker_gray"
+        android:padding="@dimen/preview_padding"
+        android:textColor="@android:color/white"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/view_btn_action" />
 
     <LinearLayout

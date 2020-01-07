@@ -21,15 +21,14 @@ import android.widget.TimePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.schibstedspain.leku.LocationPickerActivity;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.Objects;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+
+import static android.view.View.VISIBLE;
 
 /**
  * Activité de création d'un rdv géolocalisé
@@ -42,9 +41,6 @@ public class NewRendezvousActivity extends AppCompatActivity {
     static final int PICK_LOCATION_REQUEST = 2; // Code requete pour l'intent de choix lieu
 
     private LatLng latLng;
-
-    private Date date;
-    private Time time;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +70,7 @@ public class NewRendezvousActivity extends AppCompatActivity {
 
     public void previewAction(View view) {
         TextView preview = findViewById(R.id.msg_preview);
+        preview.setVisibility(VISIBLE);
         preview.setText(getMessage());
     }
 
@@ -83,10 +80,7 @@ public class NewRendezvousActivity extends AppCompatActivity {
      * @param view : Bouton envoyer
      */
     public void sendRendezvousAction(View view) {
-        /*
-         * TODO : récupération des éléments du formulaire
-         *  et envoi d'un SMS comportant le lien de validation
-         */
+        checkFormValidity();
     }
 
     @Override
@@ -139,7 +133,9 @@ public class NewRendezvousActivity extends AppCompatActivity {
      */
     private String getMessage() {
         TextView message = findViewById(R.id.message);
-        TextView address = findViewById(R.id.location_info);
+        TextView address = findViewById(R.id.location);
+        Button date = findViewById(R.id.date_picker);
+        Button time = findViewById(R.id.time_picker);
 
         // Ajout d'un message personnalisé avant le contenu du SMS si l'utilisateur en a saisi un
         String content = "";
@@ -149,7 +145,9 @@ public class NewRendezvousActivity extends AppCompatActivity {
 
         // On retourne le message à envoyer au(x) récepteur(s)
         return content +
-                "Lieu du rendez-vous : " + address.getText() +
+                "Rendez-vous au " + address.getText() +
+                " le " + date.getText() +
+                " à " + time.getText() + "." +
                 System.lineSeparator() +
                 "Pour valider le rendez-vous et avoir plus d'informations : ";
     }
@@ -170,26 +168,39 @@ public class NewRendezvousActivity extends AppCompatActivity {
         return intent;
     }
 
+    private void checkFormValidity() {
+        Button location = findViewById(R.id.location);
+        if (location.getText() == getResources().getString(R.string.default_location)) {
+            findViewById(R.id.error_location).setVisibility(VISIBLE);
+        }
+
+        Button date = findViewById(R.id.date_picker);
+        if (date.getText() == getResources().getString(R.string.default_date)) {
+            findViewById(R.id.error_date).setVisibility(VISIBLE);
+        }
+
+        Button time = findViewById(R.id.time_picker);
+        if (time.getText() == getResources().getString(R.string.default_time)) {
+            findViewById(R.id.error_time).setVisibility(VISIBLE);
+        }
+    }
+
     public static class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current time as the default values for the picker
             final Calendar c = Calendar.getInstance();
             int hour = c.get(Calendar.HOUR_OF_DAY);
             int minute = c.get(Calendar.MINUTE);
 
-            // Create a new instance of TimePickerDialog and return it
             return new TimePickerDialog(getActivity(), this, hour, minute,
                     DateFormat.is24HourFormat(getActivity()));
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            NewRendezvousActivity activity = (NewRendezvousActivity) getActivity();
-            Objects.requireNonNull(activity).time = new Time(hourOfDay, minute, 0);
-            Button time = activity.findViewById(R.id.time_picker);
+            Button time = getActivity().findViewById(R.id.time_picker);
 
-            String formattedTime = String.format(Locale.FRANCE, "%d:%d", hourOfDay, minute);
+            String formattedTime = String.format(Locale.FRANCE, "%02d:%02d", hourOfDay, minute);
             time.setText(formattedTime);
         }
     }
@@ -203,22 +214,18 @@ public class NewRendezvousActivity extends AppCompatActivity {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current date as the default date in the picker
             final Calendar c = Calendar.getInstance();
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
 
-            // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
+            return new DatePickerDialog(getActivity(), this, year, month + 1, day);
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            NewRendezvousActivity activity = (NewRendezvousActivity) getActivity();
-            Objects.requireNonNull(activity).date = new Date(year, month, day);
-            Button date = activity.findViewById(R.id.date_picker);
+            Button date = getActivity().findViewById(R.id.date_picker);
 
-            String formattedDate = String.format(Locale.FRANCE, "%d/%d/%d", day, month + 1, year);
+            String formattedDate = String.format(Locale.FRANCE, "%02d/%02d/%d", day, month, year);
             date.setText(formattedDate);
         }
     }
