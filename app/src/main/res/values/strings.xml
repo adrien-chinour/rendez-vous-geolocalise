@@ -10,14 +10,21 @@
 
     <!-- NewRendezvousActivity -->
     <string name="label_contact_list">Contact(s) pour le rendez-vous</string>
-    <string name="btn_add_location">Lieu du rendez-vous</string>
 
     <string name="btn_preview_msg">Prévisualiser</string>
     <string name="btn_send_rdv">Envoyer</string>
     <string name="add_msg_rdv">Ajouter un message</string>
-    <string name="label_date">Date du rendez-vous</string>
-    <string name="date">Choix de la date</string>
+
+    <string name="label_location">Lieu du rendez-vous</string>
+    <string name="default_location">…</string>
     <string name="error_permission_map">Vous devez autorisez l accès à la localisation.</string>
+
+
+    <string name="label_date_time">Date et heure du rendez-vous</string>
+    <string name="label_time">Heure :</string>
+    <string name="default_time">…</string>
+    <string name="label_date">Date :</string>
+    <string name="default_date">…</string>
 
 
 </resources>
