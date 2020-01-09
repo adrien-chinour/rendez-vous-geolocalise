@@ -272,6 +272,7 @@ public class NewRendezvousActivity extends AppCompatActivity {
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("rendez-vous-geo.com")
+                .appendPath("/")
                 .appendQueryParameter("latitude", String.valueOf(latLng.latitude))
                 .appendQueryParameter("longitude", String.valueOf(latLng.longitude))
                 .appendQueryParameter("adress", String.valueOf(location.getText()))

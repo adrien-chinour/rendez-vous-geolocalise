@@ -44,5 +44,13 @@
     <string name="settings_username">settings_username</string>
     <string name="error_number_size">Le numéro de téléphone saisi est invalide. Il doit contenir 10 numéros</string>
     <string name="extra_message_preference">Préférences sauvegardées</string>
+    <string name="nouveau_rendez_vous_re_u">Nouveau rendez-vous reçu</string>
+    <string name="num_ro_de_t_l_phone">Numéro de téléphone :</string>
+    <string name="addresse">Addresse :</string>
+    <string name="date">Date :</string>
+    <string name="heure">Heure :</string>
+    <string name="ouvrir_dans_google_maps">Ouvrir dans Google Maps</string>
+    <string name="refuser">Refuser</string>
+    <string name="accepter">Accepter</string>
 
 </resources>
