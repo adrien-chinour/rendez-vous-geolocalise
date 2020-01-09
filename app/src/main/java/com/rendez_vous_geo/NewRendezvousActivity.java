@@ -1,21 +1,14 @@
 package com.rendez_vous_geo;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.Address;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.telephony.SmsManager;
-import android.telephony.TelephonyManager;
 import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,26 +18,22 @@ import android.widget.Toast;
 import com.google.android.gms.maps.model.LatLng;
 import com.schibstedspain.leku.LocationPickerActivity;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
-import static android.Manifest.permission.READ_PHONE_NUMBERS;
-import static android.Manifest.permission.READ_PHONE_STATE;
-import static android.Manifest.permission.READ_SMS;
 import static android.Manifest.permission.SEND_SMS;
-import static android.os.Build.VERSION_CODES.*;
 import static android.view.View.VISIBLE;
 
 public class NewRendezvousActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0; // Permission SEND_SMS
-    private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 1; // Permission READ_PHONE_STATE
 
     private static final int PICK_CONTACT_REQUEST = 1; // Code requete pour l'intent de choix contact
     private static final int PICK_LOCATION_REQUEST = 2; // Code requete pour l'intent de choix lieu
@@ -55,26 +44,10 @@ public class NewRendezvousActivity extends AppCompatActivity {
     // Liste des numéros des destinataires
     private String[] phoneNumbers;
 
-    // Numéro de l'utilisateur
-    private String phone;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_rendezvous);
-
-        /*
-         * Vérification de la permission pour la lecture du numéro de téléphone.
-         */
-        if (checkPhonePermissions()) {
-            if (Build.VERSION.SDK_INT >= O) {
-                ActivityCompat.requestPermissions(this, new String[]{READ_SMS, READ_PHONE_NUMBERS, READ_PHONE_STATE}, MY_PERMISSIONS_REQUEST_READ_PHONE_STATE);
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{READ_SMS, READ_PHONE_STATE}, MY_PERMISSIONS_REQUEST_READ_PHONE_STATE);
-            }
-        } else {
-            phone = getPhone();
-        }
     }
 
     /**
@@ -178,18 +151,14 @@ public class NewRendezvousActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (grantResults.length <= 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-            finish(); // L'activité est stoppée car les droits sont nécessaires pour utiliser l'application
-            return;
-        }
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_SEND_SMS:
+    public void onRequestPermissionsResult(int requestCode, @NotNull String[] permissions, @NotNull int[] grantResults) {
+        if (requestCode == MY_PERMISSIONS_REQUEST_SEND_SMS) {
+
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 sendSms();
-                break;
-            case MY_PERMISSIONS_REQUEST_READ_PHONE_STATE:
-                phone = getPhone();
-                break;
+            } else {
+                Toast.makeText(this, getString(R.string.error_permission_sms), Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -278,7 +247,7 @@ public class NewRendezvousActivity extends AppCompatActivity {
                 .appendQueryParameter("latitude", String.valueOf(latLng.latitude))
                 .appendQueryParameter("longitude", String.valueOf(latLng.longitude))
                 .appendQueryParameter("adress", String.valueOf(location.getText()))
-                .appendQueryParameter("phone", phone)
+                .appendQueryParameter("phone", "0642451547") // TODO get value from settings
                 .appendQueryParameter("date", String.valueOf(date.getText()))
                 .appendQueryParameter("time", String.valueOf(time.getText()));
 
@@ -310,41 +279,5 @@ public class NewRendezvousActivity extends AppCompatActivity {
         }
 
         return false;
-    }
-
-    /**
-     * Récupération du numéro de téléphone de l'utlisateur
-     *
-     * @return : numéro de téléphone utilisateur
-     */
-    @SuppressLint("MissingPermission")
-    private String getPhone() {
-        String number = "";
-        TelephonyManager phoneMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        if (checkPhonePermissions()) {
-            Log.w("test", "isnumbered");
-            number = phoneMgr.getLine1Number();
-        }
-
-        Log.w("test", number);
-        return number;
-    }
-
-    /**
-     * Vérification des permissions par version android
-     *
-     * @return
-     */
-    private boolean checkPhonePermissions() {
-        if (Build.VERSION.SDK_INT >= O) {
-            return ActivityCompat.checkSelfPermission(this, READ_SMS) != PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(this, READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(this, READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED;
-        } else if (Build.VERSION.SDK_INT >= M) {
-            return ActivityCompat.checkSelfPermission(this, READ_SMS) != PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(this, READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED;
-        } else {
-            return true;
-        }
     }
 }

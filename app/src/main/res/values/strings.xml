@@ -27,5 +27,6 @@
     <string name="error_time">L\'heure est requise.</string>
     <string name="error_location">Le lieu est requis.</string>
     <string name="error_contact">Contact incorrect ou inexistant.</string>
+    <string name="error_permission_sms">Envoi du sms impossible les droits sont requis</string>
 
 </resources>
