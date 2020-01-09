@@ -6,13 +6,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
     <LinearLayout
         android:id="@+id/view_contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="@dimen/view_separation"
-        android:paddingBottom="@dimen/view_separation"
+        android:padding="@dimen/default_padding"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -20,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="@string/label_contact_list"
             android:textAllCaps="true"
-            android:textColor="@android:color/holo_blue_dark" />
+            android:textColor="@color/colorPrimary" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:backgroundTint="@android:color/holo_blue_dark"
+                android:backgroundTint="@color/colorPrimary"
                 android:inputType="text"
                 tools:ignore="Autofill,LabelFor" />
 
@@ -51,7 +55,6 @@
             android:id="@+id/error_contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/error_padding"
             android:text="@string/error_contact"
             android:textColor="@android:color/holo_red_light"
             android:visibility="invisible" />
@@ -64,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/view_separation"
+        android:padding="@dimen/default_padding"
         app:layout_constraintTop_toBottomOf="@+id/view_contact">
 
         <TextView
@@ -73,7 +76,7 @@
             android:layout_height="wrap_content"
             android:text="@string/label_location"
             android:textAllCaps="true"
-            android:textColor="@android:color/holo_blue_dark" />
+            android:textColor="@color/colorPrimary" />
 
         <Button
             android:id="@+id/location"
@@ -87,7 +90,6 @@
             android:id="@+id/error_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/error_padding"
             android:text="@string/error_location"
             android:textColor="@android:color/holo_red_light"
             android:visibility="invisible" />
@@ -99,7 +101,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/view_separation"
+        android:padding="@dimen/default_padding"
         app:layout_constraintTop_toBottomOf="@+id/view_location">
 
         <TextView
@@ -108,13 +110,13 @@
             android:labelFor="@+id/message"
             android:text="@string/add_msg_rdv"
             android:textAllCaps="true"
-            android:textColor="@android:color/holo_blue_dark" />
+            android:textColor="@color/colorPrimary" />
 
         <EditText
             android:id="@+id/message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/holo_blue_dark"
+            android:backgroundTint="@color/colorPrimary"
             android:importantForAutofill="no"
             android:inputType="text" />
     </LinearLayout>
@@ -123,6 +125,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+
+        android:padding="@dimen/default_padding"
         app:layout_constraintTop_toBottomOf="@id/view_message">
 
         <TextView
@@ -130,7 +134,7 @@
             android:layout_height="wrap_content"
             android:text="@string/label_date_time"
             android:textAllCaps="true"
-            android:textColor="@android:color/holo_blue_dark" />
+            android:textColor="@color/colorPrimary" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -191,7 +195,6 @@
             android:id="@+id/error_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/error_padding"
             android:text="@string/error_date"
             android:textColor="@android:color/holo_red_light"
             android:visibility="invisible" />
@@ -200,23 +203,11 @@
             android:id="@+id/error_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/error_padding"
             android:text="@string/error_time"
             android:textColor="@android:color/holo_red_light"
             android:visibility="invisible" />
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/msg_preview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/preview_margin"
-        android:background="@android:color/darker_gray"
-        android:padding="@dimen/preview_padding"
-        android:textColor="@android:color/white"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/view_btn_action" />
 
     <LinearLayout
         android:id="@+id/view_btn_action"
@@ -232,14 +223,14 @@
             android:background="@android:color/darker_gray"
             android:onClick="previewAction"
             android:text="@string/btn_preview_msg"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/primary_text_dark"
             tools:ignore="ButtonStyle" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@android:color/holo_blue_dark"
+            android:background="@color/colorPrimary"
             android:onClick="sendRendezvousAction"
             android:text="@string/btn_send_rdv"
             android:textColor="@android:color/white"

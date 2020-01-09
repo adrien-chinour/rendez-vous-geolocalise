@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.PorterDuff;
 import android.location.Address;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
@@ -50,6 +52,14 @@ public class NewRendezvousActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_rendezvous);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
     }
 
     /**
@@ -109,9 +119,7 @@ public class NewRendezvousActivity extends AppCompatActivity {
             return;
         }
 
-        TextView preview = findViewById(R.id.msg_preview);
-        preview.setVisibility(VISIBLE);
-        preview.setText(getMessage());
+        Toast.makeText(this, getMessage(), Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -140,7 +148,7 @@ public class NewRendezvousActivity extends AppCompatActivity {
     private void sendSms() {
         for (String phoneNumber : this.phoneNumbers) {
             if (!phoneNumber.matches("^[+]?[0-9]{4,13}$")) {
-                Toast.makeText(getApplicationContext(), "Le numéro de téléphone " + phoneNumber + " n'est pas valide.", Toast.LENGTH_SHORT).show();
+                displayErrorToast();
                 return;
             } else {
                 SmsManager sm = SmsManager.getDefault();
@@ -149,7 +157,20 @@ public class NewRendezvousActivity extends AppCompatActivity {
             }
         }
 
-        Toast.makeText(getApplicationContext(), "Votre message a bien été envoyé.", Toast.LENGTH_LONG).show();
+        Intent i = new Intent(this, MainActivity.class);
+        i.putExtra(getString(R.string.extra_message_validation), "Votre message a bien été envoyé.");
+        startActivity(i);
+        finish();
+    }
+
+    private void displayErrorToast() {
+        Toast t = Toast.makeText(getApplicationContext(), getString(R.string.error_contact_list), Toast.LENGTH_SHORT);
+        View view = t.getView();
+        view.getBackground().setColorFilter(getResources().getColor(R.color.danger), PorterDuff.Mode.SRC_IN);
+
+        TextView text = view.findViewById(android.R.id.message);
+        text.setTextColor(getResources().getColor(R.color.white));
+        t.show();
     }
 
     @Override
@@ -286,5 +307,12 @@ public class NewRendezvousActivity extends AppCompatActivity {
         }
 
         return false;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        finish();
+        return true;
     }
 }

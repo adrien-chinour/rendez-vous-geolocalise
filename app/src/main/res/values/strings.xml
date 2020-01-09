@@ -37,5 +37,12 @@
     <!-- Clé pour les SharedPreferences -->
     <string name="settings_phone">settings_phone</string>
     <string name="shared_preference">com.rendez_vous_geo.settings</string>
+    <string name="menu_item_preference">Préférences</string>
+    <string name="error_contact_list">Les contacts ne sont pas valide.</string>
+    <string name="extra_message_validation">message_valide</string>
+    <string name="label_username">Votre nom</string>
+    <string name="settings_username">settings_username</string>
+    <string name="error_number_size">Le numéro de téléphone saisi est invalide. Il doit contenir 10 numéros</string>
+    <string name="extra_message_preference">Préférences sauvegardées</string>
 
 </resources>
