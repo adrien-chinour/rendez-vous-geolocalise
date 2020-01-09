@@ -70,9 +70,6 @@ public class ValidateRendezvousActivity extends AppCompatActivity {
     public void responseAction(View view) {
         Button clickedButton = findViewById(view.getId());
         String choix;
-        // Récupération du numéro de téléphone de l'utilisateur actuel dans les préférences
-        SharedPreferences userPhoneNumberPref = this.getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE);
-        String userPhoneNumber = userPhoneNumberPref.getString(getString(R.string.settings_phone), "");
 
         // Construction du message
         if (clickedButton.getText().equals(ACCEPT)) {
@@ -84,7 +81,7 @@ public class ValidateRendezvousActivity extends AppCompatActivity {
 
         String message = "Le rendez-vous au " + this.adress +
                 " le " + this.date +
-                " à " + this.time + " a été " + choix + " par " + userPhoneNumber + ".";
+                " à " + this.time + " a été " + choix + ".";
         // Envoi du message
         sendSMS(message);
         Toast.makeText(getApplicationContext(), "Votre message a bien été envoyé.", Toast.LENGTH_LONG).show();
