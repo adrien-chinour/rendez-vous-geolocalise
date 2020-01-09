@@ -1,6 +1,8 @@
 package com.rendez_vous_geo;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.location.Address;
@@ -241,13 +243,18 @@ public class NewRendezvousActivity extends AppCompatActivity {
         Button date = findViewById(R.id.date_picker);
         Button time = findViewById(R.id.time_picker);
 
+        SharedPreferences sharedPref = this.getSharedPreferences(
+                getString(R.string.shared_preference), Context.MODE_PRIVATE);
+
+        String phone = sharedPref.getString(getString(R.string.settings_phone), "");
+
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("rendez-vous-geo.com")
                 .appendQueryParameter("latitude", String.valueOf(latLng.latitude))
                 .appendQueryParameter("longitude", String.valueOf(latLng.longitude))
                 .appendQueryParameter("adress", String.valueOf(location.getText()))
-                .appendQueryParameter("phone", "0642451547") // TODO get value from settings
+                .appendQueryParameter("phone", phone)
                 .appendQueryParameter("date", String.valueOf(date.getText()))
                 .appendQueryParameter("time", String.valueOf(time.getText()));
 
