@@ -29,4 +29,13 @@
     <string name="error_contact">Contact incorrect ou inexistant.</string>
     <string name="error_permission_sms">Envoi du sms impossible les droits sont requis</string>
 
+    <!-- PreferenceActivity -->
+    <string name="title_activity_preference">Mes préferences</string>
+    <string name="label_phone">Votre numéro de téléphone</string>
+    <string name="btn_validate_settings">Valider mes préférences</string>
+
+    <!-- Clé pour les SharedPreferences -->
+    <string name="settings_phone">settings_phone</string>
+    <string name="shared_preference">com.rendez_vous_geo.settings</string>
+
 </resources>

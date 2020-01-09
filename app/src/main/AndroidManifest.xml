@@ -23,7 +23,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/Theme.AppCompat.Light"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-
+        <activity
+            android:name=".PreferenceActivity"
+            android:label="@string/title_activity_preference" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
@@ -39,6 +41,7 @@
         <activity android:name=".ValidateRendezvousActivity">
             <intent-filter>
                 <data android:scheme="rdvgeo" />
+
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />

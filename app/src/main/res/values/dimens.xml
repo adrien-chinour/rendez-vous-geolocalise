@@ -4,4 +4,5 @@
     <dimen name="preview_margin">20dp</dimen>
     <dimen name="preview_padding">10dp</dimen>
     <dimen name="error_padding">10dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
