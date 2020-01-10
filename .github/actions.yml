@@ -1,0 +1,19 @@
+name: Android CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    
+    - name: build
+      uses: xdtianyu/actions-android-ci@master
+      with: 
+        args: '"
+        source /opt/setup-android-sdk.sh;
+        ./gradlew assembleDebug
+        "'
