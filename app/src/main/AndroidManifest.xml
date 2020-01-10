@@ -38,7 +38,9 @@
         <activity
             android:name=".NewRendezvousActivity"
             android:label="@string/title_new_rdv_activity" />
-        <activity android:name=".ValidateRendezvousActivity">
+        <activity
+            android:name=".ValidateRendezvousActivity"
+            android:label="@string/title_validate_rendezvous">
             <intent-filter>
                 <data android:scheme="rdvgeo" />
 
