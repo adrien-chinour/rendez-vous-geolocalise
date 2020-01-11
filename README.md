@@ -15,7 +15,7 @@ __Le fonctionnement de l'application est le suivant :__
 
 ## Installation
 
-[app-debug.apk](/adrien-chinour/rendez-vous-geolocalise/releases/latest/download/app-debug.apk)
+[app-debug.apk](https://github.com/adrien-chinour/rendez-vous-geolocalise/releases/latest/download/app-debug.apk)
 
 ## Conventions
 
