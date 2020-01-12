@@ -19,7 +19,7 @@ jobs:
       - name: Build unsigned application
         run: ./gradlew clean assembleRelease
       - name: Signing application
-        id: sign-android-release
+        id: sign_application
         uses: r0adkll/sign-android-release@v1
         with:
           releaseDirectory: /app/build/outputs/apk/release
@@ -45,6 +45,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ sign-android-release.signedReleaseFile }}
+          asset_path: ${{ steps.sign_application.outputs.signedReleaseFile }}
           asset_name: rdv-geo.apk
           asset_content_type: application/vnd.android.package-archive
