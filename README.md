@@ -13,6 +13,10 @@ __Le fonctionnement de l'application est le suivant :__
 - L’application	récupère alors les coordonnées GPS actuelles ou permet à l'utilisateur dans choisir d'autres et les envoie à la ou les personnes choisies.
 - À la réception de l'invitation, la personne peut soit accepter soit refuser le rendez-vous. La personne ayant initié le rendez-vous est alors avertie de la décision de l'invité(e).
 
+## Télécharger l'APK
+
+L'application signée est généré lors de la release : [rdv-geo.apk](https://github.com/adrien-chinour/rendez-vous-geolocalise/releases/latest/download/rdv-geo.apk)
+
 ## Développement
 
 ### Conventions
