@@ -1,4 +1,4 @@
 #! /bin/bash
 
 # Permet de générer le fichier secrets.xml pour la CI
-envsubst < ./.ci/secrets.xml.exemple > app/src/main/res/values/secrets.xml
+envsubst < .ci/secrets.exemple.xml > app/src/main/res/values/secrets.xml
