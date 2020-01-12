@@ -22,7 +22,7 @@ jobs:
     - name: Prebuild
       run: ./prebuild.sh
       env:
-        - GOOGLE_API_KEY: ${{ secrets.google_api_key }}
+        GOOGLE_API_KEY: ${{ secrets.google_api_key }}
     - name: Build with Gradle
       run: ./gradlew build
     - name: Upload APK
