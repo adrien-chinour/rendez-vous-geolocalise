@@ -1,9 +1,9 @@
+name: Release Android
+
 on:
   push:
     tags:
       - 'v*'
-      
-name: Release Android
 
 jobs:
   build:
@@ -12,8 +12,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@master
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Prebuild
+        run: ./prebuild.sh
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+      - name: Build released application
+        id: sign-android-release
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: /app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -31,8 +42,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} 
-          asset_path: app/build/outputs/apk/debug/app-debug.apk
-          asset_name: app-debug.apk
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: app/build/outputs/apk/release/app-release.apk
+          asset_name: rdv-geo.apk
           asset_content_type: application/vnd.android.package-archive
           
