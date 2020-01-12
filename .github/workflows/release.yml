@@ -16,7 +16,9 @@ jobs:
         run: ./prebuild.sh
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-      - name: Build released application
+      - name: Build unsigned application
+        run: ./gradlew clean assembleRelease
+      - name: Signing application
         id: sign-android-release
         uses: r0adkll/sign-android-release@v1
         with:
@@ -43,7 +45,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: app/build/outputs/apk/release/app-release.apk
+          asset_path: ${{ sign-android-release.signedReleaseFile }}
           asset_name: rdv-geo.apk
           asset_content_type: application/vnd.android.package-archive
-          
