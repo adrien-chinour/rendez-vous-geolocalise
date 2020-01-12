@@ -19,6 +19,11 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Prebuild
+      run: ./prebuild.sh
+      with:
+        env:
+          - GOOGLE_API_KEY: ${{ secrets.google_api_key }}
     - name: Build with Gradle
       run: ./gradlew build
     - name: Upload APK
