@@ -1,7 +1,5 @@
 # Rendez-vous geolocalise
 
-L'ensemble de la documentation est disponible sur la page du projet : [ici](https://adrien-chinour.github.io/rendez-vous-geolocalise/)
-
 ## Description
 
 > Énoncé disponible [ici](https://www.labri.fr/perso/zemmari/pam/Projet2017.pdf)
